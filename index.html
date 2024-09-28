@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang Chính</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            text-align: center;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #28a745;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .nav {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+        .nav a {
+            margin-left: 15px;
+            text-decoration: none;
+            color: #007bff;
+        }
+        .nav a:hover {
+            text-decoration: underline;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="nav">
+        <a href="labs.html">Labs</a>
+        <a href="about.html">Giới thiệu</a>
+    </div>
+
+    <div class="container" id="loginContainer">
+        <h2>Đăng Nhập</h2>
+        <input type="text" id="username" placeholder="Tên đăng nhập" required>
+        <input type="password" id="password" placeholder="Mật khẩu" required>
+        <button onclick="login()">Đăng Nhập</button>
+        <button onclick="toggleRegister()">Đăng Ký</button>
+    </div>
+
+    <div class="container hidden" id="registerContainer">
+        <h2>Đăng Ký</h2>
+        <input type="text" id="registerUsername" placeholder="Tên đăng nhập" required>
+        <input type="password" id="registerPassword" placeholder="Mật khẩu" required>
+        <button onclick="register()">Đăng Ký</button>
+        <button onclick="toggleRegister()">Quay lại</button>
+    </div>
+
+    <script>
+        function toggleRegister() {
+            const loginContainer = document.getElementById('loginContainer');
+            const registerContainer = document.getElementById('registerContainer');
+            loginContainer.classList.toggle('hidden');
+            registerContainer.classList.toggle('hidden');
+        }
+
+        function register() {
+            const username = document.getElementById('registerUsername').value;
+            const password = document.getElementById('registerPassword').value;
+
+            // Lưu thông tin đăng ký vào localStorage
+            localStorage.setItem('username', username);
+            localStorage.setItem('password', password);
+
+            alert("Đăng ký thành công!");
+            toggleRegister();
+        }
+
+        function login() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            // Lấy thông tin từ localStorage
+            const storedUsername = localStorage.getItem('username');
+            const storedPassword = localStorage.getItem('password');
+
+            if (username === storedUsername && password === storedPassword) {
+                alert("Đăng nhập thành công!");
+                window.location.href = "about.html"; // Chuyển hướng đến trang About
+            } else {
+                alert("Tên đăng nhập hoặc mật khẩu không chính xác.");
+            }
+        }
+    </script>
+</body>
+</html>
